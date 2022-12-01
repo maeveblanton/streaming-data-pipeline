@@ -63,6 +63,7 @@ class StretchProblemsTests extends FunSpec {
       assert(StretchProblems.getNextBiggestNumber(76778) === 76787)
     }
 
+    //
     it("should work for 2372") {
       assert(StretchProblems.getNextBiggestNumber(2372) === 2723)
     }
