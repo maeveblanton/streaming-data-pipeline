@@ -11,7 +11,7 @@ import java.util.{Arrays, Properties, UUID}
 object ConnectionTest {
   // TODO: this is configured to use kafka running locally, change it to your cluster
   val BootstrapServer : String = "CHANGEME"
-  val Topic: String = "connection-test"
+  val Topic: String = "question-1-output"
   val username: String = "1904labs"
   val password: String = "1904labs"
   //Use this for Windows

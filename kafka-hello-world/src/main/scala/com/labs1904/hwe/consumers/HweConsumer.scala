@@ -27,7 +27,7 @@ object HweConsumer {
   def main(args: Array[String]): Unit = {
 
     // Create the KafkaConsumer
-    val consumerProperties = SimpleConsumer.getProperties(BootstrapServer)
+    val consumerProperties = SimpleConsumer.getConsumerProperties(BootstrapServer)
     val consumer: KafkaConsumer[String, String] = new KafkaConsumer[String, String](consumerProperties)
 
     // Create the KafkaProducer
