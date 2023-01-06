@@ -19,11 +19,14 @@ object WordCountBatchApp {
       import spark.implicits._
 
       val sentences = spark.read.csv("src/main/resources/sentences.txt").as[String]
-      sentences.printSchema
+
+      val words = sentences.flatMap(row => splitSentenceIntoWords(row))
 
       // TODO: implement me
 
-      //val counts = ???
+      val counts = words.groupBy(col("value")).count().sort(col("count").desc, col("value"))
+      counts.printSchema()
+      counts.show()
 
       //counts.foreach(wordCount=>println(wordCount))
     } catch {
@@ -33,6 +36,10 @@ object WordCountBatchApp {
 
   // TODO: implement this function
   // HINT: you may have done this before in Scala practice...
-  def splitSentenceIntoWords(sentence: String): Array[String] = ???
+  def splitSentenceIntoWords(sentence: String): Array[String] =
+    sentence
+      .toLowerCase
+      .replaceAll("[^a-z0-9'\\s]+"," ")
+      .split(" ")
 
 }
