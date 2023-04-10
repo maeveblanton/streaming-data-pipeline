@@ -39,7 +39,7 @@ object WordCountBatchApp {
   def splitSentenceIntoWords(sentence: String): Array[String] =
     sentence
       .toLowerCase
-      .replaceAll("[^a-z0-9'\\s]+"," ")
+      .replaceAll("[^a-z0-9'\\s]+","")
       .split(" ")
 
 }

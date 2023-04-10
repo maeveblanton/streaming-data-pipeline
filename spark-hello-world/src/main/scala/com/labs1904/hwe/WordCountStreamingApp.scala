@@ -1,5 +1,6 @@
 package com.labs1904.hwe
 
+import com.labs1904.hwe.WordCountBatchApp.splitSentenceIntoWords
 import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.common.serialization.StringSerializer
 import org.apache.log4j.Logger
@@ -23,9 +24,9 @@ object WordCountStreamingApp {
   val Topic: String = "word-count"
 
   //Use this for Windows
-  //val trustStore: String = "src\\main\\resources\\kafka.client.truststore.jks"
+  val trustStore: String = "src\\main\\resources\\kafka.client.truststore.jks"
   //Use this for Mac
-  val trustStore: String = "src/main/resources/kafka.client.truststore.jks"
+//  val trustStore: String = "src/main/resources/kafka.client.truststore.jks"
 
   def main(args: Array[String]): Unit = {
     logger.info(s"$jobName starting...")
@@ -58,11 +59,14 @@ object WordCountStreamingApp {
 
       sentences.printSchema
 
-      // TODO: implement me
-      //val counts = ???
+      val words = sentences.flatMap(row => splitSentenceIntoWords(row))
 
-      val query = sentences.writeStream
-        .outputMode(OutputMode.Append())
+      // TODO: implement me
+
+      val counts = words.groupBy(col("value")).count().sort(col("count").desc, col("value"))
+
+      val query = counts.writeStream
+        .outputMode(OutputMode.Complete())
         .format("console")
         .trigger(Trigger.ProcessingTime("5 seconds"))
         .start()
