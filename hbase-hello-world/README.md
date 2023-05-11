@@ -12,6 +12,9 @@ Navigate to MyApp.scala to start editing!
 Challenge #1: What is user=10000001 email address? Determine this by using a Get that *only* returns that user's email 
 address, not their complete column list.
 
+dmeadows@yahoo.com
+
+
 Challenge #2: Write a new user to your table with:
 
  - Rowkey: 99
