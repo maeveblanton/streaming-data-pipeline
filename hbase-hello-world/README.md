@@ -28,6 +28,8 @@ other record has: DOB, email address, etc.)
 
 Challenge #3: How many user IDs exist between 10000001 and 10006001? (Not all user IDs exist, so the answer is *not* 
 6000)
+461
+
 
 Challenge #4: Delete the user with ID = 99 that we inserted earlier.
 

@@ -21,7 +21,7 @@ object ConnectionTest {
       val conf = HBaseConfiguration.create()
       conf.set("hbase.zookeeper.quorum", "CHANGEME")
       connection = ConnectionFactory.createConnection(conf)
-      val table = connection.getTable(TableName.valueOf("hwe:connection_test"))
+      val table = connection.getTable(TableName.valueOf("nrafferty:users"))
 
       //default stuff
 //      val get = new Get(Bytes.toBytes("rowkey"))
@@ -59,11 +59,11 @@ object ConnectionTest {
 //      message = Bytes.toString(result.getFamilyMap(Bytes.toBytes("f1")).get(Bytes.toBytes("favorite_color")))
 //      logger.debug(message)
 
-      // todo challenge 3 scan
+      // challenge 3 scan
 //      val scan = new Scan().withStartRow(Bytes.toBytes("10000001")).withStopRow(Bytes.toBytes("10006001"))
 //      scan.addColumn(Bytes.toBytes("f1"), Bytes.toBytes("name"))
 //      val scanner = table.getScanner(scan)
-//      scanner.iterator().
+//      logger.debug(scanner.asScala.size)
 
       // challenge 4 delete
 //      val delete = new Delete(Bytes.toBytes("99"))
@@ -72,23 +72,15 @@ object ConnectionTest {
 
 
       // todo challenge 5 get multiple
-//      val get1 = new Get(Bytes.toBytes("9005729"))
-//      val get2 = new Get(Bytes.toBytes("500600"))
-//      val get3 = new Get(Bytes.toBytes("30059640"))
-//      val get4 = new Get(Bytes.toBytes("6005263"))
-//      val get5 = new Get(Bytes.toBytes("800182"))
-//      val results = table.get(List(get1, get2, get3, get4, get5).asJava)
-//      results.foreach(r => {
-//        logger.debug(
-//          r
-//            .getFamilyMap(
-//              Bytes.toBytes("f1")
-//            )
-//            .get(
-//              Bytes.toBytes("mail")
-//            )
-//        )
-//      })
+      val get1 = new Get(Bytes.toBytes("9005729"))
+      val get2 = new Get(Bytes.toBytes("500600"))
+      val get3 = new Get(Bytes.toBytes("30059640"))
+      val get4 = new Get(Bytes.toBytes("6005263"))
+      val get5 = new Get(Bytes.toBytes("800182"))
+      val results = table.get(List(get1, get2, get3, get4, get5).asJava)
+      results.foreach(r => {
+        logger.debug(Bytes.toString(r.getFamilyMap(Bytes.toBytes("f1")).get(Bytes.toBytes("mail"))))
+      })
 
 
     } catch {
